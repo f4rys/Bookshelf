@@ -7,10 +7,11 @@
         name="OpenStreetMap"
       ></l-tile-layer>
       <l-marker :lat-lng="userLocation" v-if="userLocation">
+        <l-icon :icon-url="icon_blue" :icon-size="[35,35]"></l-icon>
         <l-tooltip :content="'Your location'"></l-tooltip>
       </l-marker>
       <l-marker v-for="(marker, index) in markers" :key="index" :lat-lng="[marker.lat, marker.long]">
-        <l-icon :icon-url="icon" :icon-size="[35,35]"></l-icon>
+        <l-icon :icon-url="icon_black" :icon-size="[35,35]"></l-icon>
         <l-tooltip :content="marker.name"></l-tooltip>
       </l-marker>
     </l-map>
@@ -35,7 +36,8 @@ export default {
     return {
       zoom: 14,
       userLocation: null,
-      icon: require(".././assets/marker.png"),
+      icon_black: require(".././assets/marker_black.png"),
+      icon_blue: require(".././assets/marker_blue.png"),
       markers: [
         { name: "Marker 1", lat: 50.049683, long: 19.944544 },
         { name: "Marker 2", lat: 50.05, long: 19.95 },

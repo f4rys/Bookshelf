@@ -1,9 +1,9 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-primary">
     <div class="container-fluid">
       <div class="navbar-brand">
         <img src="./assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top mx-3">
-        <router-link to="/">Bookshelf</router-link>
+        <router-link class="app-name" to="/">BOOKSHELF</router-link>
       </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -19,8 +19,8 @@
         </ul>
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item dropdown">
-            <div class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</div>
-            <ul class="dropdown-menu">
+            <div class="nav-link dropdown-toggle text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</div>
+            <ul class="dropdown-menu" data-bs-theme="dark">
               <li><div class="dropdown-item"><router-link to="/profile">Profile</router-link></div></li>
               <li><div class="dropdown-item"><router-link to="/shelf">Your shelf</router-link></div></li>
               <li><div class="dropdown-item"><router-link to="/logout">Log out</router-link></div></li>
@@ -48,11 +48,21 @@
 
 nav {
   padding: 30px;
+  background-color: #ffdc40;
+  color: rgb(255, 255, 255);
 }
 
 nav a {
   text-decoration: none;
-  color: black;
+  color: rgb(255, 255, 255);
+}
+
+.app-name {
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.nav-link:hover {
+  transform: scale(1.05);
 }
 
 </style>

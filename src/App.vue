@@ -23,7 +23,7 @@
             <ul class="dropdown-menu" data-bs-theme="dark">
               <li><div class="dropdown-item"><router-link to="/profile">Profile</router-link></div></li>
               <li><div class="dropdown-item"><router-link to="/shelf">Your shelf</router-link></div></li>
-              <li><div class="dropdown-item"><router-link to="/logout">Log out</router-link></div></li>
+              <li><div class="dropdown-item">Log out</div></li>
             </ul>
           </li>
           <li class="nav-item">

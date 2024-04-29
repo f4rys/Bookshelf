@@ -15,7 +15,7 @@
             <input type="password" class="form-control mt-2 mb-4" id="password" v-model="password" required>
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
-          <a href="/signup" class="btn btn-link">Sign Up</a>
+          <a href="/signup" class="btn btn-link"><router-link to="/signup">Sign up</router-link></a>
         </form>
       </div>
     </div>

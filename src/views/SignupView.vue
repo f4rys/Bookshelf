@@ -18,10 +18,6 @@
             <label for="password">Password</label>
             <input type="password" class="form-control mt-2" id="password" v-model="password" required>
           </div>
-          <div class="form-group my-3">
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" class="form-control mt-2" id="confirmPassword" v-model="confirmPassword" required>
-          </div>
           <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
       </div>
@@ -30,6 +26,11 @@
 </template>
 
 <script>
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { usersRef } from '@/main.js';
+import { doc, setDoc } from 'firebase/firestore';
+import { useToast } from "vue-toastification";
+
 export default {
   name: 'SignupView',
   data() {
@@ -37,20 +38,39 @@ export default {
       username: '',
       email: '',
       password: '',
-      confirmPassword: '',
-      agreeToTerms: false,
     };
   },
   methods: {
     handleSubmit() {
-      // Implement your signup logic here
-      // This could involve making an API call to your backend to create a new user
-      console.log('Submitting signup form:', this.username, this.email, this.password);
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          const newUserDocRef = doc(usersRef, user.uid);
+
+          setDoc(newUserDocRef, {
+            "Username": this.username,
+            "Avatar_url": "",
+            "Favourite_books": [],
+            "Saved_progress": []
+          })
+            .then(() => {
+              const toast = useToast();
+              toast.success("Signed up successfully!");
+              this.$router.push('/profile');
+            })
+            // eslint-disable-next-line no-unused-vars
+            .catch((error) => {
+              const toast = useToast();
+              toast.error("Signed up but user info not set correctly.");
+            });
+          })
+        // eslint-disable-next-line no-unused-vars
+        .catch((error) => {
+          const toast = useToast();
+          toast.error("Error while signing up.");
+        });
     },
   },
 };
 </script>
-
-<style scoped>
-  /* Add custom styles here to match your desired design */
-</style>

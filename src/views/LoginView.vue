@@ -8,7 +8,7 @@
         <form @submit.prevent="handleSubmit">
           <div class="form-group my-3">
             <label for="username">Username or Email</label>
-            <input type="text" class="form-control mt-2" id="username" v-model="username" required>
+            <input type="text" class="form-control mt-2" id="username" v-model="email" required>
           </div>
           <div class="form-group my-3">
             <label for="password">Password</label>
@@ -23,17 +23,31 @@
 </template>
 
 <script>
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useToast } from "vue-toastification";
+
 export default {
   name: 'LoginView',
   data() {
     return {
-      username: '',
+      email: '',
       password: '',
     };
   },
   methods: {
-    handleSubmit() {
-      console.log('Submitting login form:', this.username, this.password);
+    async handleSubmit() {
+      const auth = getAuth();
+        signInWithEmailAndPassword(auth, this.email, this.password)
+          .then(() => {
+            const toast = useToast();
+            toast.success("Login successful.");
+            this.$router.push('/profile');
+          })
+          // eslint-disable-next-line no-unused-vars
+          .catch((error) => {
+            const toast = useToast();
+            toast.success("Error while logging in.");
+          });
     },
   },
 };

@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { initializeApp } from 'firebase/app'
 import { getFirestore, collection } from 'firebase/firestore'
 import { VueFire, VueFireAuth } from 'vuefire'
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 export const firebaseApp = initializeApp({
     apiKey: "AIzaSyDEPKlqj6wIO8Vz4OHIrdCkaFYEbopqDKc",
@@ -18,13 +20,17 @@ export const firebaseApp = initializeApp({
 })
 
 const db = getFirestore(firebaseApp)
-export const booksRef = collection(db, 'Books')
-export const usersRef = collection(db, 'Users')
-export const storesRef = collection(db, 'Bookstores')
+export var booksRef = collection(db, 'Books')
+export var usersRef = collection(db, 'Users')
+export var storesRef = collection(db, 'Bookstores')
 
-createApp(App).use(router).use(VueFire, {
-    firebaseApp,
-    modules: [
-      VueFireAuth(),
-    ],
-  }).mount('#app')
+createApp(App)
+    .use(router)
+    .use(VueFire, {
+        firebaseApp,
+        modules: [
+        VueFireAuth(),
+        ],
+    })
+    .use(Toast)
+    .mount('#app')

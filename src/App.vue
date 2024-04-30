@@ -23,7 +23,7 @@
             <ul class="dropdown-menu" data-bs-theme="dark">
               <li><div class="dropdown-item"><router-link to="/profile">Profile</router-link></div></li>
               <li><div class="dropdown-item"><router-link to="/shelf">Your shelf</router-link></div></li>
-              <li><div class="dropdown-item">Log out</div></li>
+              <li><div class="dropdown-item"><button @click="logOut">Log out</button></div></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -36,6 +36,32 @@
 
   <router-view/>
 </template>
+
+<script>
+import { getAuth, signOut } from "firebase/auth";
+import { useToast } from "vue-toastification";
+
+export default {
+  name: 'App',
+  data() {
+    return {
+    };
+  },
+  methods: {
+    async logOut() {
+      const auth = getAuth();
+        signOut(auth).then(() => {
+          const toast = useToast();
+          toast.success("Logged out.");
+        // eslint-disable-next-line no-unused-vars
+        }).catch((error) => {
+          const toast = useToast();
+          toast.error("Error while logging out.");
+        });
+    },
+  },
+};
+</script>
 
 <style>
 #app {

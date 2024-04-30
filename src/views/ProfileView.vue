@@ -20,20 +20,29 @@
 import { getCurrentUser } from 'vuefire'
 import { usersRef } from '@/main.js';
 import { getDoc, doc } from 'firebase/firestore';
+import { ref as storageRef } from 'firebase/storage'
+import { useFirebaseStorage, useStorageFile, useStorageFileUrl } from 'vuefire'
 
 try{
-  const user = await getCurrentUser()
+  var user = await getCurrentUser()
   const specificUserDocRef = doc(usersRef, user.uid);
 
   var avatarUrl = '';
   var username = '';
   var email = '';
+  const storage = useFirebaseStorage()
+
+  const mountainFileRef = storageRef(storage, 'avatars/'+user.uid+'.jpg')
+  const {
+    url,
+  } = useStorageFileUrl(mountainFileRef)
+
+  avatarUrl = url
 
   await getDoc(specificUserDocRef)
     .then(docSnapshot => {
       if (docSnapshot.exists) {
         const userData = docSnapshot.data();
-        avatarUrl = userData["Avatar_url"];
         username = userData["Username"];
         email = user.email
       }
@@ -44,29 +53,33 @@ try{
   }
 
 export default {
-  setup(){
-
-  },
   data() {
     return {
+      user: user,
       avatarUrl: avatarUrl,
       email: email,
       username: username,
     };
   },
   methods: {
-    changeAvatarFromDevice() {
-      // Implement logic to open file selection dialog and update avatarUrl
+    async changeAvatarFromDevice() {
       const fileInput = document.createElement('input');
       fileInput.type = 'file';
       fileInput.accept = 'image/*';
       fileInput.addEventListener('change', (event) => {
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.avatarUrl = e.target.result;
-          // Implement logic to upload image to server (if needed)
+            this.avatarUrl = e.target.result;
         };
         reader.readAsDataURL(event.target.files[0]);
+        const storage = useFirebaseStorage()
+            const mountainFileRef = storageRef(storage, 'avatars/'+this.user.uid+'.jpg')
+            const {
+                upload,
+              } = useStorageFile(mountainFileRef)
+            
+            console.log(this.avatarUrl)
+        upload(event.target.files[0])
       });
       fileInput.click();
     },

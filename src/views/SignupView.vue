@@ -50,7 +50,6 @@ export default {
 
           setDoc(newUserDocRef, {
             "Username": this.username,
-            "Avatar_url": "",
             "Favourite_books": [],
             "Saved_progress": []
           })

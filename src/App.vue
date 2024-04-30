@@ -14,7 +14,7 @@
             <div class="nav-link"><router-link to="/books">Books</router-link></div>
           </li>
           <li class="nav-item">
-            <div class="nav-link"><router-link to="/libraries">Libraries</router-link></div>
+            <div class="nav-link"><router-link to="/stores">Stores</router-link></div>
           </li>
         </ul>
         <ul class="navbar-nav mb-2 mb-lg-0">

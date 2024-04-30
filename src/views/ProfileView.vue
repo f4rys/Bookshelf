@@ -17,40 +17,41 @@
 </template>
 
 <script>
-import { useCurrentUser } from 'vuefire'
+import { getCurrentUser } from 'vuefire'
 import { usersRef } from '@/main.js';
 import { getDoc, doc } from 'firebase/firestore';
 
 try{
-  const user = useCurrentUser();
-  console.log(user.uid)
-
+  const user = await getCurrentUser()
   const specificUserDocRef = doc(usersRef, user.uid);
 
-  getDoc(specificUserDocRef)
+  var avatarUrl = '';
+  var username = '';
+  var email = '';
+
+  await getDoc(specificUserDocRef)
     .then(docSnapshot => {
       if (docSnapshot.exists) {
         const userData = docSnapshot.data();
-        // Use the fetched user data
-        console.log(userData);
-      } else {
-        // Document not found
+        avatarUrl = userData["Avatar_url"];
+        username = userData["Username"];
+        email = user.email
       }
     })
-    .catch(error => {
-      console.error("Error fetching user doc:", error);
-    });
   }
   catch(error){
     console.log(error)
   }
 
 export default {
+  setup(){
+
+  },
   data() {
     return {
-      avatarUrl: '', // Replace with default avatar path
-      email: 'email@example.com',
-      username: 'JohnDoe93'
+      avatarUrl: avatarUrl,
+      email: email,
+      username: username,
     };
   },
   methods: {

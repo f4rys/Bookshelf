@@ -42,13 +42,11 @@ import { getAuth, signOut } from "firebase/auth";
 import { useToast } from "vue-toastification";
 import { useCurrentUser } from 'vuefire'
 
-const user = useCurrentUser();
-
 export default {
   name: 'App',
   data() {
     return {
-      user: user
+      user: useCurrentUser()
     };
   },
   methods: {

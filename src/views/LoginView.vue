@@ -43,10 +43,9 @@ export default {
             toast.success("Login successful.");
             this.$router.push('/profile');
           })
-          // eslint-disable-next-line no-unused-vars
           .catch((error) => {
             const toast = useToast();
-            toast.success("Error while logging in.");
+            toast.error("Error while logging in: ", error);
           });
     },
   },

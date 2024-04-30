@@ -58,16 +58,14 @@ export default {
               toast.success("Signed up successfully!");
               this.$router.push('/profile');
             })
-            // eslint-disable-next-line no-unused-vars
             .catch((error) => {
               const toast = useToast();
-              toast.error("Signed up but user info not set correctly.");
+              toast.error("Signed up but user info not set correctly: ", error);
             });
           })
-        // eslint-disable-next-line no-unused-vars
         .catch((error) => {
           const toast = useToast();
-          toast.error("Error while signing up.");
+          toast.error("Error while signing up: ", error);
         });
     },
   },

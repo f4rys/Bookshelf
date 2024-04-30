@@ -72,14 +72,14 @@ export default {
 <style>
 .map_container,
 .map_container .leaflet-container {
-  height: 100vh; /* Set height to 100% of viewport height */
-  width: 100%; /* Set width to 100% of parent container */
+  height: 100vh;
+  width: 100%;
 }
 
 .gps-button {
   position: absolute;
-  bottom: 10px; /* Adjust bottom position as needed */
-  right: 10px; /* Adjust right position as needed */
+  bottom: 10px;
+  right: 10px;
   z-index: 1000;
   padding: 5px 10px;
   background-color: #fff;

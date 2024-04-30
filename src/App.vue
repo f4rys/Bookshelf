@@ -19,7 +19,7 @@
         </ul>
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item dropdown">
-            <div class="nav-link dropdown-toggle text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</div>
+            <div v-if="user" class="nav-link dropdown-toggle text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</div>
             <ul class="dropdown-menu" data-bs-theme="dark">
               <li><div class="dropdown-item"><router-link to="/profile">Profile</router-link></div></li>
               <li><div class="dropdown-item"><router-link to="/shelf">Your shelf</router-link></div></li>
@@ -27,7 +27,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <div class="nav-link"><router-link to="/login">Log in</router-link></div>
+            <div v-if="!user" class="nav-link"><router-link to="/login">Log in</router-link></div>
           </li>
         </ul>
       </div>
@@ -40,11 +40,15 @@
 <script>
 import { getAuth, signOut } from "firebase/auth";
 import { useToast } from "vue-toastification";
+import { useCurrentUser } from 'vuefire'
+
+const user = useCurrentUser();
 
 export default {
   name: 'App',
   data() {
     return {
+      user: user
     };
   },
   methods: {

@@ -1,17 +1,14 @@
 <template>
-    <div class="container py-5">
-        <h2>{{ book["Author"] }} - {{ book["Title"] }}</h2> 
-    </div>
     <div style="height: 100vh">
-        <vue-reader :url=epubUrl :epubInitOptions="{ openAs: 'epub' }" />
+        <vue-reader :title=book.title @update:location="locationChange" :location=page :url=epubUrl :epubInitOptions="{ openAs: 'epub' }" />
     </div>
 </template>
-  
+
 <script>
 import { booksRef } from '@/main.js';
 import { usersRef } from '@/main.js';
 import { getCurrentUser } from 'vuefire'
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { ref as storageRef } from 'firebase/storage'
 import { useFirebaseStorage, useStorageFileUrl } from 'vuefire'
 import { VueReader } from 'vue-reader'
@@ -20,16 +17,28 @@ const urlParams = new URLSearchParams(window.location.search);
 const bookId = urlParams.get('bookId');
 
 var user = await getCurrentUser();
-const specificUserDocRef = doc(usersRef, user.uid);
-// eslint-disable-next-line no-unused-vars
-var userData;
+var specificUserDocRef;
+var page = 0;
+
+if(user){
+  specificUserDocRef = doc(usersRef, user.uid);
 
 await getDoc(specificUserDocRef)
-    .then(docSnapshot => {
+    .then(async docSnapshot => {
+      console.log(docSnapshot)
       if (docSnapshot.exists) {
-        userData = docSnapshot.data();
+        var userData = docSnapshot.data();
+        if(userData["Saved_progress"][bookId]){
+          page = userData["Saved_progress"][bookId]
+        }
+        else{
+          await updateDoc(specificUserDocRef, {
+            [`Saved_progress.${bookId}`]: 0
+          });
+        }
       }
     });
+}
 
 const bookDocRef = doc(booksRef, bookId);
 var bookData;
@@ -48,7 +57,8 @@ export default {
   data() {
     return {
       book: bookData,
-      epubUrl: null
+      epubUrl: null,
+      page: page
     };
   },
   methods:{
@@ -60,6 +70,13 @@ export default {
       } = useStorageFileUrl(mountainFileRef)
 
       this.epubUrl = url
+    },
+    async locationChange(epubcifi) {
+      if(user){
+        await updateDoc(specificUserDocRef, {
+           [`Saved_progress.${bookId}`]: epubcifi
+          });
+        }
     }
   },
   beforeMount(){

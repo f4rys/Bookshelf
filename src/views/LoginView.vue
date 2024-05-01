@@ -65,7 +65,7 @@ export default {
                   setDoc(newUserDocRef, {
                       "Username": user.displayName,
                       "Favourite_books": [],
-                      "Saved_progress": []
+                      "Saved_progress": {}
                     })
                       .then(() => {
                         const toast = useToast();

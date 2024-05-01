@@ -10,7 +10,6 @@
         </div>
         <p>Username: {{ username }}</p>
         <p>Email: {{ email }}</p>
-        <router-link class="btn btn-secondary" to="/shelf">Go to Your Shelf</router-link>
       </div>
     </div>
   </div>

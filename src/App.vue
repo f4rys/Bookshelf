@@ -22,7 +22,6 @@
             <div v-if="user" class="nav-link dropdown-toggle text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</div>
             <ul class="dropdown-menu" data-bs-theme="dark">
               <li><div class="dropdown-item"><router-link to="/profile">Profile</router-link></div></li>
-              <li><div class="dropdown-item"><router-link to="/shelf">Your shelf</router-link></div></li>
               <li><div class="dropdown-item" @click="logOut">Log out</div></li>
             </ul>
           </li>

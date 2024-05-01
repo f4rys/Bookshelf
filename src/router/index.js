@@ -23,11 +23,6 @@ const routes = [
     component: () => import('../views/ProfileView.vue')
   },
   {
-    path: '/shelf',
-    name: 'shelf',
-    component: () => import('../views/ShelfView.vue')
-  },  
-  {
     path: '/login',
     name: 'login',
     component: () => import('../views/LoginView.vue')

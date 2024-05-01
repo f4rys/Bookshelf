@@ -17,7 +17,7 @@
           <button type="submit" class="btn btn-primary">Login</button>
           <a href="/signup" class="btn btn-link"><router-link to="/signup">Sign up</router-link></a>
         </form>
-        <button type="submit" class="btn btn-primary" @click="loginWithGoogle()">Login with Google</button>
+          <a class="mt-3 btn btn-lg btn-google btn-block btn-outline align-text-center" @click="loginWithGoogle()"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> LOGIN WITH GOOGLE</a>
       </div>
     </div>
   </div>
@@ -27,8 +27,8 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useToast } from "vue-toastification";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
-
+import { usersRef } from '@/main.js';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 export default {
   name: 'LoginView',
@@ -56,11 +56,30 @@ export default {
       const provider = new GoogleAuthProvider();
       const auth = getAuth();
       await signInWithPopup(auth, provider)
-        .then((result) => {
-          const toast = useToast();
-          toast.success("Login successful.", result);
-          this.$router.push('/profile');
+        .then(async (userCredential) => {
+          const user = userCredential.user;
+          const newUserDocRef = doc(usersRef, user.uid);
+
+          await getDoc(newUserDocRef).then((doc) => {
+                if (!doc.data()) {
+                  setDoc(newUserDocRef, {
+                      "Username": user.displayName,
+                      "Favourite_books": [],
+                      "Saved_progress": []
+                    })
+                      .then(() => {
+                        const toast = useToast();
+                        toast.success("Login successful!");
+                        this.$router.push('/profile');
+                      })
+                      .catch((error) => {
+                        const toast = useToast();
+                        toast.error("Logged in but user info not set correctly: ", error);
+                      });
+                }
+            })
         }).catch((error) => {
+          console.log(error)
           const toast = useToast();
           toast.error("Error while logging in: ", error);
         });
@@ -68,3 +87,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.btn-google {
+    color: #545454;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 1px #ddd;
+    border-radius: 2px;
+    text-transform: capitalize;
+    font-size: 15px;
+    padding: 10px 19px;
+    cursor: pointer
+}
+</style>

@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkbookshelf"]=self["webpackChunkbookshelf"]||[]).push([[970],{9970:function(n,e,u){u.r(e),u.d(e,{default:function(){return h}});var r=u(6768);const l=(0,r.Lk)("h1",null,"Shelf",-1),t=[l];function f(n,e){return(0,r.uX)(),(0,r.CE)("div",null,t)}var o=u(1241);const s={},c=(0,o.A)(s,[["render",f]]);var h=c}}]);
-//# sourceMappingURL=970.b68f8dec.js.map

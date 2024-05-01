@@ -12,7 +12,7 @@
           <p class="card-text mx-4">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu</p>
         </div>
         <div class="mx-4">
-          <button type="button" class="btn btn-primary">Read</button>
+          <button type="button" class="btn btn-primary" @click="openBook(book.id)">Read</button>
         </div>
       </div>
     </div>
@@ -80,7 +80,12 @@ export default {
         });
         book.isFavourite = false
       }
-
+    },
+    openBook(id){
+      const url = new URL(window.location.origin +'/read');
+      const searchParams = new URLSearchParams({"bookId": id});
+      url.search = searchParams.toString();
+      window.location.href = url.toString();
     }
   }
 };

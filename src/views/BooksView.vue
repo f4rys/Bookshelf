@@ -80,6 +80,7 @@ export default {
         console.log(error);
         });
         book.isFavourite = true
+        navigator.vibrate(500);
       }
       else{
         await updateDoc(specificUserDocRef, {
@@ -88,6 +89,7 @@ export default {
         console.log(error);
         });
         book.isFavourite = false
+        navigator.vibrate(500);
       }
     },
     openBook(id){

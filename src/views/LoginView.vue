@@ -67,16 +67,15 @@ export default {
                       "Favourite_books": [],
                       "Saved_progress": {}
                     })
-                      .then(() => {
-                        const toast = useToast();
-                        toast.success("Login successful!");
-                        this.$router.push('/profile');
-                      })
+
                       .catch((error) => {
                         const toast = useToast();
                         toast.error("Logged in but user info not set correctly: ", error);
                       });
                 }
+                    const toast = useToast();
+                    toast.success("Login successful!");
+                    this.$router.push('/profile');
             })
         }).catch((error) => {
           console.log(error)

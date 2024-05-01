@@ -17,6 +17,7 @@
           <button type="submit" class="btn btn-primary">Login</button>
           <a href="/signup" class="btn btn-link"><router-link to="/signup">Sign up</router-link></a>
         </form>
+        <button type="submit" class="btn btn-primary" @click="loginWithGoogle()">Login with Google</button>
       </div>
     </div>
   </div>
@@ -25,6 +26,9 @@
 <script>
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useToast } from "vue-toastification";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
+
 
 export default {
   name: 'LoginView',
@@ -48,6 +52,19 @@ export default {
             toast.error("Error while logging in: ", error);
           });
     },
+    async loginWithGoogle(){
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth();
+      await signInWithPopup(auth, provider)
+        .then((result) => {
+          const toast = useToast();
+          toast.success("Login successful.", result);
+          this.$router.push('/profile');
+        }).catch((error) => {
+          const toast = useToast();
+          toast.error("Error while logging in: ", error);
+        });
+    }
   },
 };
 </script>

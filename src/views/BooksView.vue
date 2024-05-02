@@ -14,7 +14,8 @@
           <p class="card-text mx-4">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu</p>
         </div>
         <div class="mx-4">
-          <button type="button" class="btn btn-primary" @click="openBook(book.id)">Read</button>
+          <button v-if="!book.isSaved" type="button" class="btn btn-primary" @click="openBook(book.id)">Read</button>
+          <button v-if="book.isSaved" type="button" class="btn btn-primary" @click="openBook(book.id)">Continue reading</button>
         </div>
       </div>
     </div>
@@ -33,7 +34,9 @@ var user = await getCurrentUser();
 var specificUserDocRef;
 
 var userData;
-var userFavourites = []
+var userSavedProgress = {};
+var userFavourites = [];
+var books = [];
 
 if(user){
   specificUserDocRef = doc(usersRef, user.uid);
@@ -45,22 +48,27 @@ if(user){
       }
     });
 
+  userSavedProgress = userData["Saved_progress"]
   userFavourites = userData["Favourite_books"];
 }
 
 const querySnapshot = await getDocs(booksRef);
-const books = [];
 querySnapshot.forEach((doc) => {
   var isFavourite;
+  var isSaved;
   if(userFavourites.includes(doc.id)){
     isFavourite = true
+  }
+  if(doc.id in userSavedProgress){
+    isSaved = true
   }
   books.push({
     "id": doc.id,
     "author": doc.data()["Author"], 
     "title": doc.data()["Title"],
     "coverUrl": doc.data()["Cover_url"],
-    "isFavourite": isFavourite
+    "isFavourite": isFavourite,
+    "isSaved": isSaved
   });
 });
 

@@ -1,6 +1,6 @@
 <template>
   <div class="container d-flex justify-content-center align-items-center vh-75 mt-5">
-    <div class="card shadow-sm col-md-10">
+    <div class="card shadow-sm col-10">
       <div class="card-body text-center">
         <div class="d-flex justify-content-center mb-3">
           <img :src="avatarUrl" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px;">

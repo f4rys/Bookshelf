@@ -7,7 +7,7 @@
       <div class="card-body">
         <form @submit.prevent="handleSubmit">
           <div class="form-group my-3">
-            <label for="username">Username or Email</label>
+            <label for="username">Email</label>
             <input type="text" class="form-control mt-2" id="username" v-model="email" required>
           </div>
           <div class="form-group my-3">

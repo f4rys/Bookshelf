@@ -6,7 +6,8 @@
           <img :src="avatarUrl" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px;">
         </div>
         <div class="d-flex justify-content-around mb-3">
-          <button class="btn btn-primary" @click="changeAvatarFromDevice">Change Photo</button>
+          <button class="btn btn-primary" @click="changeAvatarFromDevice">Select avatar</button>
+          <button class="btn btn-secondary" @click="openCamera">Take photo</button>
         </div>
         <p>Username: {{ username }}</p>
         <p>Email: {{ email }}</p>
@@ -82,6 +83,62 @@ export default {
       });
       fileInput.click();
     },
+    async openCamera() {
+      try {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
+          video: true, // Request video input
+        });
+
+        const video = document.createElement('video');
+        video.srcObject = mediaStream;
+        video.play();
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        const takePhotoButton = document.createElement('button');
+        takePhotoButton.textContent = 'Take Photo';
+        takePhotoButton.addEventListener('click', async () => {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          context.drawImage(video, 0, 0);
+
+          const dataURL = canvas.toDataURL('image/jpeg'); // Convert to JPEG
+          // Convert dataURL to Blob for Firebase Storage upload
+          const blob = await dataURItoBlob(dataURL);
+
+          const storage = useFirebaseStorage()
+
+          // Use existing upload logic from changeAvatarFromDevice
+          const mountainFileRef = storageRef(storage, 'avatars/' + this.user.uid + '.jpg');
+          const { upload } = useStorageFile(mountainFileRef);
+          upload(blob);
+
+          // Stop the video stream after taking the photo
+          mediaStream.getTracks().forEach(track => track.stop());
+          video.remove();
+          takePhotoButton.remove();
+        });
+
+        document.body.appendChild(video);
+        document.body.appendChild(takePhotoButton);
+      } catch (error) {
+        console.error('Error accessing camera:', error);
+      }
+    },
   },
 };
+
+function dataURItoBlob(dataURI) {
+  // Convert the dataURL to a Blob for Firebase Storage upload
+  const arr = dataURI.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
+}
 </script>

@@ -1,18 +1,24 @@
 <template>
   <div class="container py-5">
-    <div v-for="book in books" :key="book.title" class="card mb-3 shadow-sm d-flex flex-row">
-      <img :src="book.coverUrl" alt="Book Cover" class="card-img img-fluid" style="width: 200px; height: auto;">
-      <div class="card-body d-flex flex-column justify-content-between align-items-start">
-        <div class="text-start">
-          <h4 class="card-title fs-1 mx-4 align-text-center">{{ book.title }}<button type="button" class="btn align-text-top" @click="updateFavourite(book)">
-            <div v-if="user">
-              <img v-if="book.isFavourite" class="image-fluid" height="30" width="30" src=".././assets/star.png">
-              <img v-if="!book.isFavourite" class="image-fluid" height="30" width="30" src=".././assets/star_outline.png">
-            </div>
-          </button></h4> 
-          <p class="card-text fs-4 mx-4">{{ book.author }}</p> 
-          <p class="card-text mx-4">{{ book.synopsis }}</p>
+    <div v-for="book in books" :key="book.title" class="card mb-3 shadow-sm d-flex flex-column">
+      <div class="d-flex flex-row align-items-center">
+        <img :src="book.coverUrl" alt="Book Cover" class="card-img img-fluid" style="width: 200px; height: auto;">
+        <div class="card-body d-flex flex-column justify-content-between align-items-start">
+          <div class="text-start">
+            <h4 class="card-title fs-1 mx-4 align-text-center">{{ book.title }}
+              <button type="button" class="btn align-text-top" @click="updateFavourite(book)">
+                <div v-if="user">
+                  <img v-if="book.isFavourite" class="image-fluid" height="30" width="30" src=".././assets/star.png">
+                  <img v-if="!book.isFavourite" class="image-fluid" height="30" width="30" src=".././assets/star_outline.png">
+                </div>
+              </button>
+            </h4>
+            <p class="card-text fs-4 mx-4">{{ book.author }}</p>
+          </div>
         </div>
+      </div>
+      <hr class="my-3">  <div class="card-body">
+        <p class="card-text mx-4">{{ book.synopsis }}</p>
         <div class="mx-4">
           <button v-if="!book.isSaved" type="button" class="btn btn-primary" @click="openBook(book.id)">Read</button>
           <button v-if="book.isSaved" type="button" class="btn btn-primary" @click="openBook(book.id)">Continue reading</button>
@@ -21,6 +27,17 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+  /* Media query for mobile devices */
+  @media only screen and (max-width: 768px) {
+    .card-body {
+      flex-direction: column;
+    }
+  }
+</style>
+
+
 
 <script>
 import { getDocs } from "firebase/firestore";

@@ -1,6 +1,9 @@
 # Bookshelf
 E-book reader for books in public domain.
 
+# Use case diagram
+![Use case diagram](use_case_diagram.png)
+
 # Overview
 ## App
 - Bookshelf is SPA thanks to the use of the Vue.js framework.

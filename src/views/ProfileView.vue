@@ -17,11 +17,10 @@
 </template>
 
 <script>
-import { getCurrentUser } from 'vuefire'
 import { usersRef } from '@/main.js';
 import { getDoc, doc } from 'firebase/firestore';
-import { ref as storageRef } from 'firebase/storage'
-import { useFirebaseStorage, useStorageFile, useStorageFileUrl } from 'vuefire'
+import { ref as storageRef } from 'firebase/storage';
+import { getCurrentUser, useFirebaseStorage, useStorageFile, useStorageFileUrl } from 'vuefire';
 
 try{
   var user = await getCurrentUser()
@@ -78,7 +77,6 @@ export default {
                 upload,
               } = useStorageFile(mountainFileRef)
             
-            console.log(this.avatarUrl)
         upload(event.target.files[0])
       });
       fileInput.click();
@@ -104,17 +102,13 @@ export default {
           context.drawImage(video, 0, 0);
 
           const dataURL = canvas.toDataURL('image/jpeg'); // Convert to JPEG
-          // Convert dataURL to Blob for Firebase Storage upload
           const blob = await dataURItoBlob(dataURL);
-
           const storage = useFirebaseStorage()
 
-          // Use existing upload logic from changeAvatarFromDevice
           const mountainFileRef = storageRef(storage, 'avatars/' + this.user.uid + '.jpg');
           const { upload } = useStorageFile(mountainFileRef);
           upload(blob);
 
-          // Stop the video stream after taking the photo
           mediaStream.getTracks().forEach(track => track.stop());
           video.remove();
           takePhotoButton.remove();
@@ -130,7 +124,6 @@ export default {
 };
 
 function dataURItoBlob(dataURI) {
-  // Convert the dataURL to a Blob for Firebase Storage upload
   const arr = dataURI.split(',');
   const mime = arr[0].match(/:(.*?);/)[1];
   const bstr = atob(arr[1]);

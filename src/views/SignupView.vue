@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { usersRef } from '@/main.js';
 import { doc, setDoc } from 'firebase/firestore';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useToast } from "vue-toastification";
 
 export default {

@@ -24,11 +24,10 @@
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useToast } from "vue-toastification";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { usersRef } from '@/main.js';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useToast } from "vue-toastification";
 
 export default {
   name: 'LoginView',

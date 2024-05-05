@@ -32,14 +32,13 @@
       </div>
     </div>
   </nav>
-
   <router-view/>
 </template>
 
 <script>
 import { getAuth, signOut } from "firebase/auth";
+import { useCurrentUser } from 'vuefire';
 import { useToast } from "vue-toastification";
-import { useCurrentUser } from 'vuefire'
 
 export default {
   name: 'App',
@@ -54,10 +53,9 @@ export default {
         signOut(auth).then(() => {
           const toast = useToast();
           toast.success("Logged out.");
-        // eslint-disable-next-line no-unused-vars
         }).catch((error) => {
           const toast = useToast();
-          toast.error("Error while logging out.");
+          toast.error("Error while logging out.", error);
         });
     },
   },
@@ -91,5 +89,4 @@ nav a {
 .nav-link:hover {
   transform: scale(1.05);
 }
-
 </style>

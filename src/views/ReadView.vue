@@ -5,12 +5,10 @@
 </template>
 
 <script>
-import { booksRef } from '@/main.js';
-import { usersRef } from '@/main.js';
-import { getCurrentUser } from 'vuefire'
+import { booksRef, usersRef } from '@/main.js';
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { ref as storageRef } from 'firebase/storage'
-import { useFirebaseStorage, useStorageFileUrl } from 'vuefire'
+import { getCurrentUser, useFirebaseStorage, useStorageFileUrl } from 'vuefire'
 import { VueReader } from 'vue-reader'
 
 const urlParams = new URLSearchParams(window.location.search);

@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LMarker, LIcon, LTooltip } from "@vue-leaflet/vue-leaflet";
 import { storesRef } from '@/main.js';
 import { getDocs } from "firebase/firestore";
+import { LMap, LTileLayer, LMarker, LIcon, LTooltip } from "@vue-leaflet/vue-leaflet";
+import "leaflet/dist/leaflet.css";
 
 const querySnapshot = await getDocs(storesRef);
 const markers = [];
@@ -86,9 +86,5 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.gps-button i {
-  margin-right: 5px;
 }
 </style>

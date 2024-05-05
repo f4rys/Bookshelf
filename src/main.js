@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
+import { initializeApp } from 'firebase/app'
 import App from './App.vue'
-import './registerServiceWorker'
 import router from './router'
+import './registerServiceWorker'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { initializeApp } from 'firebase/app'
 import { getFirestore, collection } from 'firebase/firestore'
 import { VueFire, VueFireAuth } from 'vuefire'
 import Toast from "vue-toastification";

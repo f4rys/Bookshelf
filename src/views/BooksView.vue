@@ -28,24 +28,10 @@
   </div>
 </template>
 
-<style scoped>
-  /* Media query for mobile devices */
-  @media only screen and (max-width: 768px) {
-    .card-body {
-      flex-direction: column;
-    }
-  }
-</style>
-
-
-
 <script>
-import { getDocs } from "firebase/firestore";
-import { booksRef } from '@/main.js';
-import { usersRef } from '@/main.js';
+import { getDocs, getDoc, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { booksRef, usersRef } from '@/main.js';
 import { getCurrentUser } from 'vuefire'
-import { getDoc, doc } from 'firebase/firestore';
-import { updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 var user = await getCurrentUser();
 var specificUserDocRef;

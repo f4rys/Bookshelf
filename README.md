@@ -31,3 +31,6 @@ E-book reader for books in public domain.
 - User can see their username and email
 - User can also set and change their avatar. The files are stored via Firebase Storage.
 - A new avatar can be set by selecting a photo in user device's image picker or by accessing their camera and taking photo.
+
+# Attribution
+- Home page banner image by <a href="https://www.pexels.com/pl-pl/@emily-252615/">Emily</a> on <a href="https://www.pexels.com/pl-pl/zdjecie/ksiazki-768125/">Pexels

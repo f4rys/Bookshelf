@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # Guidance materials and project requirements from moodle
 materials
+
+# Dist folder
+dist

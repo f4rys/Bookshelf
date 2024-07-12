@@ -12,7 +12,7 @@ This public domain book reader is a web app project completed as part of the Mob
 
 This project is for learning purposes and contains Firebase secrets (like API keys) that are meant to be kept private. Please be kind and avoid using these secrets for anything other than exploring the project's code. Using them in a real-world context could potentially cause issues with my Firebase project.
 
-![Screenshot](.\public\img\screenshot.jpg)
+![Screenshot](public\img\screenshot.jpg)
 
 # Overview
 

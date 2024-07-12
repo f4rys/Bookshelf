@@ -9,7 +9,7 @@
     "url": "/?startLive",
     "icons": [
       {
-        "src": "https://pwabuilder.com/assets/icons/icon_192.png",
+        "src": "img/icons/manifest-icon-192.maskable.png",
         "sizes": "192x192"
       }
     ]
@@ -53,8 +53,8 @@
   ],
   "screenshots": [
     {
-      "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
-      "sizes": "2880x1800",
+      "src": "img/screenshot.jpg",
+      "sizes": "1472x815",
       "type": "image/png",
       "description": "A screenshot of the home page"
     }

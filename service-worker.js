@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
     // Based off of https://github.com/pwa-builder/PWABuilder/blob/main/docs/sw.js
 

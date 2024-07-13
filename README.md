@@ -37,6 +37,27 @@ The application boasts a responsive layout optimized for both desktop and mobile
 * **Account management:** Users can view their profile information.
 * **Avatar customization:** Avatars can be updated by selecting an existing photo from the user's device or by capturing a new image with the device's camera.
 
+# Database structure
+
+```
+Collections
+│
+└───Books
+│   └───Author (string)
+│   └───Cover_url (string)
+│   └───Synopsis (string)
+│   └───Title (string)
+│   
+└───Bookstores
+│   └───Coordinates (geopoint)
+│   └───Name (string)
+│
+└───Users
+    └───Favourite_books (array)
+    └───Saved_progress (map)
+    └───Username (string)
+```
+
 # Use case diagram
 
 ![Use case diagram](use_case_diagram.png)
@@ -78,5 +99,5 @@ The application boasts a responsive layout optimized for both desktop and mobile
 </table>
 
 # Credits
-- Home page banner image by <a href="https://www.pexels.com/pl-pl/@emily-252615/">Emily</a> on <a href="https://www.pexels.com/pl-pl/zdjecie/ksiazki-768125/">Pexels
-- 
+- Home page banner image by <a href="https://www.pexels.com/pl-pl/@emily-252615/">Emily</a> on <a href="https://www.pexels.com/pl-pl/zdjecie/ksiazki-768125/">Pexels</a>
+- Book cover images accessed via <a href="https://openlibrary.org/dev/docs/api/covers">Open Library Covers API</a>

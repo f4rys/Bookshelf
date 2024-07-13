@@ -32,8 +32,8 @@ const markers = [];
 querySnapshot.forEach((doc) => {
   markers.push({
     "name": doc.data()["Name"], 
-    "lat": doc.data()["Localization"]["_lat"],
-    "long": doc.data()["Localization"]["_long"]
+    "lat": doc.data()["Coordinates"]["_lat"],
+    "long": doc.data()["Coordinates"]["_long"]
   });
 });
 

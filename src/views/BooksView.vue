@@ -1,7 +1,7 @@
 <template>
   <div class="container py-5">
     <div v-for="book in books" :key="book.title" class="card mb-3 shadow-sm d-flex flex-column">
-      <div class="d-flex flex-row align-items-center">
+      <div class="d-flex flex-row align-items-center bg-light">
         <img :src="book.coverUrl" alt="Book Cover" class="card-img img-fluid" style="width: 200px; height: auto;">
         <div class="card-body d-flex flex-column justify-content-between align-items-start">
           <div class="text-start">
@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <hr class="my-3">  <div class="card-body">
+      <hr class="my-0">  <div class="card-body bg-primary bg-opacity-10">
         <p class="card-text mx-4">{{ book.synopsis }}</p>
         <div class="mx-4">
           <button v-if="!book.isSaved" type="button" class="btn btn-primary" @click="openBook(book.id)">Read</button>
